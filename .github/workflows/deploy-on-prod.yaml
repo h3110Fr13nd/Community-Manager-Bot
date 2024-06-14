@@ -51,6 +51,10 @@ jobs:
             oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
             tags: tag:ci
 
+      - name: SSH and execute tasks
+        run: |
+          ssh ${{ env.TS_SSH_USERNAME }}@${{ env.TS_INSTANCE_IP_STAGING }} ls $${{ env.PROJECT_PATH_STAGING }}/../
+
       - name: copy exported docker images to remote server
         uses: appleboy/scp-action@v0.1.7
         with:
