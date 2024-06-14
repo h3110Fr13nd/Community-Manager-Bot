@@ -53,7 +53,7 @@ jobs:
 
       - name: SSH and execute tasks
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ env.TS_SSH_USERNAME }}@${{ env.TS_INSTANCE_IP_STAGING }} ls $${{ env.PROJECT_PATH_STAGING }}/../
+          ssh -o StrictHostKeyChecking=no ${{ env.TS_SSH_USERNAME }}@${{ env.TS_INSTANCE_IP_STAGING }} ls ~
 
       - name: copy exported docker images to remote server
         uses: appleboy/scp-action@v0.1.7
