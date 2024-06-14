@@ -54,8 +54,8 @@ jobs:
       - name: SSH and execute tasks
         run: |
           ssh -o StrictHostKeyChecking=no ${{ env.TS_SSH_USERNAME }}@${{ env.TS_INSTANCE_IP_STAGING }} "ls && pwd && echo 'gfshd' > abc.txt"
-          scp -o StrictHostKeyChecking=no -rf images ${{ env.TS_SSH_USERNAME }}@${{ env.TS_INSTANCE_IP_STAGING }}:${{ env.PROJECT_PATH_STAGING }}/temp/
-          scp -o StrictHostKeyChecking=no -f docker-compose.yaml ${{ env.TS_SSH_USERNAME }}@${{ env.TS_INSTANCE_IP_STAGING }}:${{ env.PROJECT_PATH_STAGING }}/temp/
+          scp -o StrictHostKeyChecking=no -r images ${{ env.TS_SSH_USERNAME }}@${{ env.TS_INSTANCE_IP_STAGING }}:${{ env.PROJECT_PATH_STAGING }}/temp/
+          scp -o StrictHostKeyChecking=no docker-compose.yaml ${{ env.TS_SSH_USERNAME }}@${{ env.TS_INSTANCE_IP_STAGING }}:${{ env.PROJECT_PATH_STAGING }}/temp/
           ssh -o StrictHostKeyChecking=no ${{ env.TS_SSH_USERNAME }}@${{ env.TS_INSTANCE_IP_STAGING }} "ls && cd . && mkdir -p images/"
           ssh -o StrictHostKeyChecking=no ${{ env.TS_SSH_USERNAME }}@${{ env.TS_INSTANCE_IP_STAGING }} "echo 'in for' && for tar in images/*.tar; do  docker load -i $tar; done && echo 'out for rm images'" 
           ssh -o StrictHostKeyChecking=no ${{ env.TS_SSH_USERNAME }}@${{ env.TS_INSTANCE_IP_STAGING }}"rm -rf images/* || true && echo 'compose down' "
